@@ -240,7 +240,10 @@ function collision(sprite1, sprite2){
         nextPhase = {color: "#cc495c", diameter: 140};
         break;
       case 140:
-        nextPhase = {color: "#c22f44", diameter: 160};//change later
+        nextPhase = {color: "#c22f44", diameter: 160};
+        break;
+      case 160:
+        nextPhase = {color: "#000000", diameter: 180};
         break;
     }
     setTimeout(() => 
@@ -249,12 +252,12 @@ function collision(sprite1, sprite2){
         sprite2.remove();
         sprite1.diameter = nextPhase.diameter;
         sprite1.color = nextPhase.color;
-      },15);
+      },50);
     if(sprite1.diameter == 160){
       print("win!");
       setTimeout(() => {
           win = true;
-      },500);
+      },800);
     }
   }
 }
