@@ -63,8 +63,8 @@ function draw() {
   //game screen
   if(screen == 1){
     background('#dedbd2');
-    if(mouseX < 40)nextObject.x = 40;
-    else if(mouseX > 340) nextObject.x = 340;
+    if(mouseX < 35+nextObject.w/2) nextObject.x = 30+nextObject.w/2;
+    else if(mouseX > 345-nextObject.w/2) nextObject.x = 345-nextObject.w/2;
     else nextObject.x = mouseX;
     beginButton.visible = false;
     beginButton.collider = "n";
@@ -74,6 +74,11 @@ function draw() {
     for (let i = 0; i < currentObjects.length; i++) {
       let temp = currentObjects[i];
       temp.colliding(currentObjects, collision);
+      if(temp.y < 20){
+        screen = 2;
+        showScreen2();
+        break;
+      }
     }
     if(win){
       screen = 2;
