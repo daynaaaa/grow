@@ -1,5 +1,5 @@
 /* VARIABLES */
-let walls, object, screen, beginButton;
+let walls, object, screen, beginButton, demo, demoSprite, display;
 let nextObject, currentObjects;
 let win;
 let phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8;
@@ -14,7 +14,7 @@ function preload(){
   phase6 = loadImage("assets/phase6.png");
   phase7 = loadImage("assets/phase7.png");
   phase8 = loadImage("assets/phase8.png");
-
+  demo = loadImage("assets/demos.png");
 }
 
 /* SETUP RUNS ONCE */
@@ -30,7 +30,12 @@ function setup() {
   phase6.resize(140,140);
   phase7.resize(160,160);
   phase8.resize(180,180);
+  demoSprite = new Sprite(430, 260, 60, 500, "n");
+  demoSprite.image = demo;
+  demoSprite.visible = false;
 
+  display = new Group();
+  
   walls = new Group();
   walls.color = "#4a5759";
   walls.stroke = "#4a5759";
@@ -48,6 +53,25 @@ function setup() {
   world.gravity.y = 50;
   beginButton = new Sprite(width / 2, height / 2 + 100, 100, 50, 'kinematic');
   win = false;
+  
+  new walls.Sprite(250,500,500,1,"s");
+  new walls.Sprite(0,250,1,500,"s");
+  new walls.Sprite(500,250,1,500,"s");
+  walls[0].visible = false;
+  walls[1].visible = false;
+  walls[2].visible = false;
+  
+  let arr = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8]
+  for(let i = 0; i < random(3, 5); i++){
+    let temp = Math.floor(random(8));;
+    new display.Sprite(random(50, 450), random(30, 300), 0, 0, "d")
+    print(temp);
+    display[i].diameter = (temp+1)*20 + 15;
+    display[i].image = arr[temp];
+    //display[i].vel.y = random(-10,-5);
+    display[i].overlaps(beginButton);
+  }
+  
 }
 
 /* DRAW LOOP REPEATS */
@@ -63,6 +87,14 @@ function draw() {
   if(screen == 0){
     win = false;
     background('#f7e1d7');
+    //new display.Sprite(30, 30, 30, 30, "d")
+    //display[0].image = phase1;
+    for (let i = 0; i < display.length; i++) {
+      if(display[i].mouse.pressing()){
+        display[i].x = mouseX; display[i].y = mouseY;
+      }
+    }
+    
     beginButton.color = "#edafb8";
     beginButton.stroke = "#edafb8";
     showScreen0();
@@ -70,7 +102,6 @@ function draw() {
       //delay(2000);
       showScreen1();
       screen = 1;
-
     }
   }
 
@@ -84,6 +115,10 @@ function draw() {
     beginButton.visible = false;
     beginButton.collider = "n";
     nextObject.visible = true;
+    for (let i = 0; i < display.length; i++) {
+      display[i].visible = false;
+      display[i].collider = "n";
+    }
     
     //detect collision
     for (let i = 0; i < currentObjects.length; i++) {
@@ -108,10 +143,21 @@ function draw() {
     beginButton.collider = "k";
     //print(beginButton.mouse.pressing());
     if (beginButton.mouse.pressing()) {
+      /*let arr = [phase1, phase2, phase3, phase4, phase5, phase6, phase7, phase8]
+      for(let i = 0; i < random(3, 5); i++){
+        let temp = Math.floor(random(8));;
+        new display.Sprite(random(50, 450), random(30, 300), 0, 0, "d")
+        print("againnn");
+        display[i].diameter = (temp+1)*20 + 15;
+        display[i].image = arr[temp];
+        display[i].vel.y = random(5,10);
+        display[i].overlaps(beginButton);
+        display[i].visible = true;
+      }*/
       screen = 0;
       showScreen0();
-      print("pressed");
       win = false;
+      
     }
   }
 
@@ -132,6 +178,7 @@ function showScreen0(){
   text("Use your mouse to place plants. \nIf any plants touch the top of the box the \ngame will end.", width / 2, height / 2 - 50);
   textSize(18);
   text("Hope lies in being able to grow yourself \nto reach your goals!", width / 2, height / 2 +  30);
+  demoSprite.visible = false;
 
 }
 
@@ -140,15 +187,18 @@ function showScreen1() {
   new walls.Sprite(30, 245, 3, 410);  
   new walls.Sprite(350, 245, 3, 410);
   new walls.Sprite(190, 450, 320, 3);
+  demoSprite.visible = true;
 }
 
 function showScreen2() {
+  
+  demoSprite.visible = false;
   for (let i = 0; i < currentObjects.length; i++) {
     let temp = currentObjects[i];
     temp.visible = false;
     temp.collider = "n";
   }
-  for (let i = 0; i < walls.length; i++) {
+  for (let i = 3; i < walls.length; i++) {
     let temp = walls[i];
     temp.visible = false;
     temp.collider = "n";
