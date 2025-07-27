@@ -1,7 +1,7 @@
 # Submission for GWC Game Jam - "What hope means to me"
-https://gwc-game-jam-daynach.replit.app/
+[Demo Video](https://drive.google.com/file/d/1hYmfp31GYGdaZjXUQbU1axHuR_YbM4Rt/view?usp=sharing)
 
-Demo Vid: https://drive.google.com/file/d/1hYmfp31GYGdaZjXUQbU1axHuR_YbM4Rt/view?usp=sharing
+[Replit Link](https://gwc-game-jam-daynach.replit.app/)
 
 <img width="400" alt="image" src="https://github.com/user-attachments/assets/a24efbdf-7311-46df-b7bf-0d9452837423" /> <br>
 <img width="400" alt="image" src="https://github.com/user-attachments/assets/cbf3ca90-3141-4afc-a538-6e4b4fa9cf90" />
